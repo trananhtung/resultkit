@@ -1,5 +1,5 @@
 {
-  "name": "trykit",
+  "name": "resultkit",
   "version": "0.1.0",
   "description": "Tiny, type-safe Result and Option for TypeScript — fluent methods, .ok/.some narrowing, tryCatch/tryCatchAsync, and combinators. Zero dependencies.",
   "keywords": [
@@ -18,13 +18,13 @@
   ],
   "license": "MIT",
   "author": "Tung Tran (https://github.com/trananhtung)",
-  "homepage": "https://github.com/trananhtung/trykit#readme",
+  "homepage": "https://github.com/trananhtung/resultkit#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trananhtung/trykit.git"
+    "url": "git+https://github.com/trananhtung/resultkit.git"
   },
   "bugs": {
-    "url": "https://github.com/trananhtung/trykit/issues"
+    "url": "https://github.com/trananhtung/resultkit/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",

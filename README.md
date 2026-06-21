@@ -1,21 +1,21 @@
-# trykit
+# resultkit
 
 > Tiny, type-safe **`Result`** and **`Option`** for TypeScript — fluent methods, `.ok` / `.some` narrowing, `tryCatch` / `tryCatchAsync`, and combinators. **Zero dependencies**.
 
-[![CI](https://github.com/trananhtung/trykit/actions/workflows/ci.yml/badge.svg)](https://github.com/trananhtung/trykit/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/trykit.svg)](https://www.npmjs.com/package/trykit)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/trykit)](https://bundlephobia.com/package/trykit)
-[![types](https://img.shields.io/npm/types/trykit.svg)](https://www.npmjs.com/package/trykit)
-[![license](https://img.shields.io/npm/l/trykit.svg)](./LICENSE)
+[![CI](https://github.com/trananhtung/resultkit/actions/workflows/ci.yml/badge.svg)](https://github.com/trananhtung/resultkit/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/resultkit.svg)](https://www.npmjs.com/package/resultkit)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/resultkit)](https://bundlephobia.com/package/resultkit)
+[![types](https://img.shields.io/npm/types/resultkit.svg)](https://www.npmjs.com/package/resultkit)
+[![license](https://img.shields.io/npm/l/resultkit.svg)](./LICENSE)
 
 `throw` is an invisible control-flow channel: the type system never tells you a
-function can fail, so the `catch` is easy to forget. `trykit` turns failure into
+function can fail, so the `catch` is easy to forget. `resultkit` turns failure into
 a **value** — `Result<T, E>` — that you must handle, and `Option<T>` for "might
 be absent" without `null` juggling. Both narrow on a plain discriminant, so you
 can stay fluent **or** drop into a normal `if`.
 
 ```ts
-import { tryCatch } from "trykit";
+import { tryCatch } from "resultkit";
 
 const config = tryCatch(() => JSON.parse(raw))
   .map((c) => c.timeout ?? 5000)
@@ -23,7 +23,7 @@ const config = tryCatch(() => JSON.parse(raw))
 // no try/catch, no `any` leaking out — just a number
 ```
 
-## Why trykit?
+## Why resultkit?
 
 - **Two primitives, one tiny package.** `Result` for success-or-failure,
   `Option` for present-or-absent. ESM + CJS + types, **zero deps**.
@@ -38,14 +38,14 @@ const config = tryCatch(() => JSON.parse(raw))
 ## Install
 
 ```bash
-npm install trykit
-# or: pnpm add trykit  /  yarn add trykit  /  bun add trykit
+npm install resultkit
+# or: pnpm add resultkit  /  yarn add resultkit  /  bun add resultkit
 ```
 
 ## `Result<T, E>`
 
 ```ts
-import { ok, err, type Result } from "trykit";
+import { ok, err, type Result } from "resultkit";
 
 function parsePort(input: string): Result<number, string> {
   const n = Number(input);
@@ -85,7 +85,7 @@ parsePort("70000")
 ## `Option<T>`
 
 ```ts
-import { fromNullable, some, none, type Option } from "trykit";
+import { fromNullable, some, none, type Option } from "resultkit";
 
 const port: Option<number> = fromNullable(process.env.PORT)
   .map(Number)
@@ -103,7 +103,7 @@ singleton; `fromNullable` keeps falsy-but-present values (`0`, `""`, `false`).
 ## Bridging throwing code
 
 ```ts
-import { tryCatch, tryCatchAsync, fromThrowable } from "trykit";
+import { tryCatch, tryCatchAsync, fromThrowable } from "resultkit";
 
 tryCatch(() => JSON.parse(raw));                 // Result<unknown, Error>
 tryCatch(() => risky(), (e) => new MyError(e));  // custom error mapping
@@ -121,7 +121,7 @@ Non-`Error` throws are coerced to `Error` (unless you pass `mapErr`), so an
 ## Combinators
 
 ```ts
-import { all, any, partition, ok, err } from "trykit";
+import { all, any, partition, ok, err } from "resultkit";
 
 all([ok(1), ok("two"), ok(true)]); // Ok<[number, string, boolean]>  (tuple-typed)
 all([ok(1), err("nope")]);         // Err("nope")  — short-circuits on first error
