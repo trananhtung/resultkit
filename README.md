@@ -3,10 +3,10 @@
 > Tiny, type-safe **`Result`** and **`Option`** for TypeScript — fluent methods, `.ok` / `.some` narrowing, `tryCatch` / `tryCatchAsync`, and combinators. **Zero dependencies**.
 
 [![CI](https://github.com/trananhtung/resultkit/actions/workflows/ci.yml/badge.svg)](https://github.com/trananhtung/resultkit/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/resultkit.svg)](https://www.npmjs.com/package/resultkit)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/resultkit)](https://bundlephobia.com/package/resultkit)
-[![types](https://img.shields.io/npm/types/resultkit.svg)](https://www.npmjs.com/package/resultkit)
-[![license](https://img.shields.io/npm/l/resultkit.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@billdaddy/resultkit.svg)](https://www.npmjs.com/package/@billdaddy/resultkit)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@billdaddy/resultkit)](https://bundlephobia.com/package/@billdaddy/resultkit)
+[![types](https://img.shields.io/npm/types/@billdaddy/resultkit.svg)](https://www.npmjs.com/package/@billdaddy/resultkit)
+[![license](https://img.shields.io/npm/l/@billdaddy/resultkit.svg)](./LICENSE)
 
 `throw` is an invisible control-flow channel: the type system never tells you a
 function can fail, so the `catch` is easy to forget. `resultkit` turns failure into
@@ -15,7 +15,7 @@ be absent" without `null` juggling. Both narrow on a plain discriminant, so you
 can stay fluent **or** drop into a normal `if`.
 
 ```ts
-import { tryCatch } from "resultkit";
+import { tryCatch } from "@billdaddy/resultkit";
 
 const config = tryCatch(() => JSON.parse(raw))
   .map((c) => c.timeout ?? 5000)
@@ -38,14 +38,14 @@ const config = tryCatch(() => JSON.parse(raw))
 ## Install
 
 ```bash
-npm install resultkit
-# or: pnpm add resultkit  /  yarn add resultkit  /  bun add resultkit
+npm install @billdaddy/resultkit
+# or: pnpm add @billdaddy/resultkit  /  yarn add @billdaddy/resultkit  /  bun add @billdaddy/resultkit
 ```
 
 ## `Result<T, E>`
 
 ```ts
-import { ok, err, type Result } from "resultkit";
+import { ok, err, type Result } from "@billdaddy/resultkit";
 
 function parsePort(input: string): Result<number, string> {
   const n = Number(input);
@@ -85,7 +85,7 @@ parsePort("70000")
 ## `Option<T>`
 
 ```ts
-import { fromNullable, some, none, type Option } from "resultkit";
+import { fromNullable, some, none, type Option } from "@billdaddy/resultkit";
 
 const port: Option<number> = fromNullable(process.env.PORT)
   .map(Number)
@@ -103,7 +103,7 @@ singleton; `fromNullable` keeps falsy-but-present values (`0`, `""`, `false`).
 ## Bridging throwing code
 
 ```ts
-import { tryCatch, tryCatchAsync, fromThrowable } from "resultkit";
+import { tryCatch, tryCatchAsync, fromThrowable } from "@billdaddy/resultkit";
 
 tryCatch(() => JSON.parse(raw));                 // Result<unknown, Error>
 tryCatch(() => risky(), (e) => new MyError(e));  // custom error mapping
@@ -121,7 +121,7 @@ Non-`Error` throws are coerced to `Error` (unless you pass `mapErr`), so an
 ## Combinators
 
 ```ts
-import { all, any, partition, ok, err } from "resultkit";
+import { all, any, partition, ok, err } from "@billdaddy/resultkit";
 
 all([ok(1), ok("two"), ok(true)]); // Ok<[number, string, boolean]>  (tuple-typed)
 all([ok(1), err("nope")]);         // Err("nope")  — short-circuits on first error
